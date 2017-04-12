@@ -1,8 +1,10 @@
 package jp.co.alh.watanabe_akihiro.calculate_sales;
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -132,6 +134,21 @@ public class Branch{
 			}
 		System.out.println(branchSales.entrySet());
 		System.out.println(commoditySales.entrySet());
+
+		try{
+			File branchResult = new File(args[0]+"branch.out");
+			FileWriter brWriter = new FileWriter(branchResult);
+			BufferedWriter brBuffer = new BufferedWriter(brWriter);
+			for(int b=0; b<branchMap.size(); b++){
+				ArrayList<String> bCode = new ArrayList<String>();
+				bCode.add(new branchMap.keySet());
+
+
+			}
+
+		}catch(IOException e){
+			System.out.println(e);
+		}
 
 
 	}
