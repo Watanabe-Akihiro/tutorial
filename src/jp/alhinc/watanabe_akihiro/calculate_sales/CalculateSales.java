@@ -18,17 +18,17 @@ public class CalculateSales {
 
 
 	//lstファイル読み込みメソッド
-	public static boolean lstFileReader(String[] dirName, String fileName, String kind,
+	public static boolean lstFileReader(String dirName, String fileName, String kind,
 			String regex, HashMap<String, String> nameMap, HashMap<String, Long> salesMap){
 		BufferedReader fBuffer = null;
 
 		try{
-			if(dirName == null || dirName.length !=1 ){
+			if(dirName == null){
 				System.out.println("予期せぬエラーが発生しました");
 				return false;
 			}
 
-		  	File file = new File(dirName[0], fileName);
+		  	File file = new File(dirName, fileName);
 		  	if(!file.exists()){
 		  		System.out.println(kind+"定義ファイルが存在しません");
 		  		return false;
@@ -105,7 +105,7 @@ public class CalculateSales {
 					System.out.println("予期せぬエラーが発生しました");
 					return false;
 				}
-            }
+		}
 
 		}
 		return true;
@@ -120,14 +120,18 @@ public class CalculateSales {
 		HashMap<String, Long> commoditySales = new HashMap<String, Long>();
 
 		//lstファイル読み込み
+		if(args.length != 1){
+			System.out.println("予期せぬエラーが発生しました");
+			return;
+		}
 
-		if(!lstFileReader(args, "branch.lst", "支店", "\\d{3}", branchMap, branchSales)){
+		if(!lstFileReader(args[0], "branch.lst", "支店", "\\d{3}", branchMap, branchSales)){
 			return;
 		}
 
 
 
-		if(!lstFileReader(args, "commodity.lst", "商品","[0-9a-zA-Z]{8}", commodityMap, commoditySales)){
+		if(!lstFileReader(args[0], "commodity.lst", "商品","[0-9a-zA-Z]{8}", commodityMap, commoditySales)){
 			return;
 		}
 
