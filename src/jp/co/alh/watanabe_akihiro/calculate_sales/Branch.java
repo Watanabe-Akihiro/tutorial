@@ -28,7 +28,7 @@ public class Branch {
 				return false;
 			}
 
-		  	File file = new File(dirName[0] + fileName);
+		  	File file = new File(dirName[0], fileName);
 		  	if(!file.exists()){
 		  		System.out.println(kind+"定義ファイルが存在しません");
 		  		return false;
@@ -75,7 +75,7 @@ public class Branch {
 			HashMap<String, Long> salesMap){
 		BufferedWriter rBuffer = null;
 		try{
-			File result = new File(dirName + fileName);
+			File result = new File(dirName, fileName);
 			result.createNewFile();
 			FileWriter rWriter = new FileWriter(result);
 			rBuffer = new BufferedWriter(rWriter);
@@ -121,18 +121,20 @@ public class Branch {
 
 		//lstファイル読み込み
 
-		if(lstFileReader(args, "\\branch.lst", "支店", "\\d{3}", branchMap, branchSales)){
+		if(lstFileReader(args, "branch.lst", "支店", "\\d{3}", branchMap, branchSales)){
 
 		}else{
 			return;
 		}
 
 
-		if(lstFileReader(args, "\\commodity.lst", "商品","[0-9a-zA-Z]{8}", commodityMap, commoditySales)){
+
+		if(lstFileReader(args, "commodity.lst", "商品","[0-9a-zA-Z]{8}", commodityMap, commoditySales)){
 
 		}else{
 			return;
 		}
+
 
 
 		//売り上げファイル読み込み
@@ -235,12 +237,12 @@ public class Branch {
 		//outファイル書き込み
 
 
-		if(outFileWriter(args[0], "\\branch.out", branchMap, branchSales) == true){
+		if(outFileWriter(args[0], "branch.out", branchMap, branchSales) == true){
 		}else{
 			return;
 		}
 
-		if(outFileWriter(args[0], "\\commodity.out", commodityMap, commoditySales) == true){
+		if(outFileWriter(args[0], "commodity.out", commodityMap, commoditySales) == true){
 		}else{
 			return;
 		}
