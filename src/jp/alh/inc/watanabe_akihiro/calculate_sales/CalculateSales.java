@@ -75,6 +75,7 @@ public class CalculateSales {
 			HashMap<String, Long> salesMap){
 		BufferedWriter rBuffer = null;
 		try{
+
 			File result = new File(dirName, fileName);
 			result.createNewFile();
 			FileWriter rWriter = new FileWriter(result);
@@ -104,6 +105,7 @@ public class CalculateSales {
 				} catch (IOException e) {
 					// TODO 自動生成された catch ブロック
 					e.printStackTrace();
+					return false;
 				}
             }
 
@@ -121,17 +123,13 @@ public class CalculateSales {
 
 		//lstファイル読み込み
 
-		if(lstFileReader(args, "branch.lst", "支店", "\\d{3}", branchMap, branchSales)){
-
-		}else{
+		if(!lstFileReader(args, "branch.lst", "支店", "\\d{3}", branchMap, branchSales)){
 			return;
 		}
 
 
 
-		if(lstFileReader(args, "commodity.lst", "商品","[0-9a-zA-Z]{8}", commodityMap, commoditySales)){
-
-		}else{
+		if(!lstFileReader(args, "commodity.lst", "商品","[0-9a-zA-Z]{8}", commodityMap, commoditySales)){
 			return;
 		}
 
@@ -183,7 +181,7 @@ public class CalculateSales {
 
 				if(factorArray.size() != 3){
 					System.out.println(sortedFiles.get(n).getName()+"のフォーマットが不正です");
-
+					return;
 				}
 
 				long sale = Long.parseLong(factorArray.get(2));
@@ -198,7 +196,7 @@ public class CalculateSales {
 				long branchSum = branchBase += sale;
 
 				if(branchSum>1000000000){
-					System.out.println("合計金額が10桁を超えています");
+					System.out.println("合計金額が10桁を超えました");
 					return;
 				}
 
@@ -215,7 +213,7 @@ public class CalculateSales {
 				long commoditySum = commodityBase += sale;
 
 				if(commoditySum>1000000000){
-					System.out.println("合計金額が10桁を超えています");
+					System.out.println("合計金額が10桁を超えました");
 					return;
 				}
 
@@ -226,11 +224,14 @@ public class CalculateSales {
 		}
 		catch(FileNotFoundException e){
 			System.out.println("ファイルのフォーマットが不正です");
+			return;
 		}
 		catch(IOException e){
 			System.out.println("予期せぬエラーが発生しました");
+			return;
 		}catch(NumberFormatException e){
 			System.out.println("予期せぬエラーが発生しました");
+			return;
 		}
 		finally{
 			if (sfBuffer != null)try{
@@ -238,6 +239,7 @@ public class CalculateSales {
             }
 			catch (IOException e){
                 e.printStackTrace();
+                return;
             }
 		}
 
@@ -245,13 +247,11 @@ public class CalculateSales {
 		//outファイル書き込み
 
 
-		if(outFileWriter(args[0], "branch.out", branchMap, branchSales) == true){
-		}else{
+		if(!outFileWriter(args[0], "branch.out", branchMap, branchSales) == true){
 			return;
 		}
 
-		if(outFileWriter(args[0], "commodity.out", commodityMap, commoditySales) == true){
-		}else{
+		if(!outFileWriter(args[0], "commodity.out", commodityMap, commoditySales) == true){
 			return;
 		}
 
