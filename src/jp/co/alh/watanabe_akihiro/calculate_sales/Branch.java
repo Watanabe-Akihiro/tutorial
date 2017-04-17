@@ -26,7 +26,7 @@ public class Branch {
 			if(dirName == null || dirName.length !=1 ){
 				System.out.println("予期せぬエラーが発生しました");
 				return false;
-	  		}
+			}
 
 		  	File file = new File(dirName[0] + fileName);
 		  	if(!file.exists()){
@@ -39,8 +39,8 @@ public class Branch {
 		  	String line;
 
 		  	while((line = fBuffer.readLine()) != null){
-			  String s = line;
-			  String fileContent[] = s.split(",");
+		  		String s = line;
+		  		String fileContent[] = s.split(",");
 
 			  if(fileContent[0].matches(regex)){
 				  nameMap.put(fileContent[0],fileContent[1]);
